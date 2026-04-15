@@ -283,13 +283,12 @@ function ChatSection() {
     setLoading(true);
     try {
       const res = await fetch("/api/chat", {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:SYSTEM_PROMPT,messages:nh})
-      });
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ messages: nh }),  // 只传 messages，system 已在后端写死
+});
       const data = await res.json();
-      const reply = data.content?.filter(b=>b.type==="text").map(b=>b.text).join("")
-        || (data.error?`错误：${data.error.message}`:"未收到有效回复，请重试。");
+      const reply = data.reply || "未收到有效回复";
       setMsgs(m=>[...m,{role:"ai",html:fmtMsg(reply)}]);
       setHistory(h=>[...h,{role:"assistant",content:reply}]);
     } catch(e) {
