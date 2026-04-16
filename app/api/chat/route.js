@@ -63,6 +63,324 @@ function buildChunks(kb) {
 
 const chunks = buildChunks(kb);
 
+const INTENTS = {
+  MODEL_INFO: "model_info",
+  COLOR_INFO: "color_info",
+  RECOMMEND: "recommend",
+  TUTORIAL: "tutorial",
+  FORMAT: "format",
+  COMPARE: "compare",
+  FAQ: "faq",
+  GENERAL: "general",
+};
+
+const modelKeywords = [
+  "kindle",
+  "paperwhite",
+  "signature edition",
+  "colorsoft",
+  "scribe",
+  "oasis",
+  "voyage",
+  "基础版",
+  "pw",
+];
+
+const colorKeywords = [
+  "抹茶绿",
+  "黑色",
+  "绿色",
+  "配色",
+  "颜色",
+];
+
+const recommendKeywords = [
+  "推荐",
+  "哪款",
+  "怎么买",
+  "买哪个",
+  "适合我",
+  "怎么选",
+  "选哪个",
+  "预算",
+  "性价比",
+  "学生",
+  "漫画",
+  "pdf",
+  "阅读",
+];
+
+const tutorialKeywords = [
+  "怎么",
+  "如何",
+  "教程",
+  "设置",
+  "传书",
+  "发送",
+  "导入",
+  "登录",
+  "注册",
+  "语言",
+  "高亮",
+  "书签",
+  "calibre",
+  "send to kindle",
+  "更新固件",
+];
+
+const formatKeywords = [
+  "格式",
+  "epub",
+  "pdf",
+  "mobi",
+  "azw3",
+  "kfx",
+  "cbz",
+  "cbr",
+  "docx",
+  "txt",
+  "支持什么格式",
+];
+
+const compareKeywords = [
+  "对比",
+  "区别",
+  "哪个好",
+  "哪一个好",
+  "vs",
+  "和",
+];
+
+const faqKeywords = [
+  "支持中文",
+  "能看中文吗",
+  "能看pdf吗",
+  "能装应用吗",
+  "有声书",
+  "借阅图书馆",
+  "固件",
+  "屏幕碎了",
+  "查型号",
+  "误触",
+];
+
+function includesAny(text, keywords) {
+  return keywords.some((kw) => text.includes(kw));
+}
+
+function detectIntent(rawText) {
+  const text = normalize(rawText);
+
+  if (includesAny(text, colorKeywords)) {
+    return INTENTS.COLOR_INFO;
+  }
+
+  if (includesAny(text, compareKeywords)) {
+    return INTENTS.COMPARE;
+  }
+
+  if (includesAny(text, recommendKeywords)) {
+    return INTENTS.RECOMMEND;
+  }
+
+  if (includesAny(text, tutorialKeywords)) {
+    return INTENTS.TUTORIAL;
+  }
+
+  if (includesAny(text, formatKeywords)) {
+    return INTENTS.FORMAT;
+  }
+
+  if (includesAny(text, faqKeywords)) {
+    return INTENTS.FAQ;
+  }
+
+  if (includesAny(text, modelKeywords)) {
+    return INTENTS.MODEL_INFO;
+  }
+
+  return INTENTS.GENERAL;
+}
+
+function handleColorQuery(userMessage, kb) {
+  const text = normalize(userMessage);
+
+  for (const model of kb.models || []) {
+    const colors = model.colors || [];
+    const matchedColor = colors.find((c) => text.includes(normalize(c)));
+    if (matchedColor) {
+      return `${model.name} 提供这些配色：${colors.join("、")}。`;
+    }
+
+    // 兼容“抹茶绿”这种局部词
+    if (colors.some((c) => normalize(c).includes(text) || text.includes(normalize(c)))) {
+      return `${model.name} 提供这些配色：${colors.join("、")}。`;
+    }
+  }
+
+  // 专门处理抹茶绿这种用户只输入一个颜色名
+  for (const model of kb.models || []) {
+    const colors = model.colors || [];
+    if (colors.some((c) => normalize(c).includes("抹茶绿")) && text.includes("抹茶绿")) {
+      return `${model.name} 提供这些配色：${colors.join("、")}。`;
+    }
+  }
+
+  return null;
+}
+
+function handleRecommendQuery(userMessage, kb) {
+  const text = normalize(userMessage);
+  const scenarios = kb.buying_guide?.scenarios || [];
+
+  let best = null;
+  let bestScore = 0;
+
+  for (const item of scenarios) {
+    const corpus = normalize(
+      `${item.need} ${item.recommendation} ${item.reason}`
+    );
+
+    let score = 0;
+
+    if (text.includes("预算") || text.includes("便宜") || text.includes("性价比")) {
+      if (corpus.includes("价格最低") || corpus.includes("最便宜") || corpus.includes("性价比")) {
+        score += 2;
+      }
+    }
+
+    if (text.includes("防水")) {
+      if (corpus.includes("防水")) score += 2;
+    }
+
+    if (text.includes("漫画") || text.includes("彩色")) {
+      if (corpus.includes("彩色") || corpus.includes("漫画")) score += 2;
+    }
+
+    if (text.includes("笔记") || text.includes("手写")) {
+      if (corpus.includes("笔记") || corpus.includes("手写")) score += 2;
+    }
+
+    if (text.includes("学生")) {
+      if (corpus.includes("学生")) score += 2;
+    }
+
+    if (score > bestScore) {
+      best = item;
+      bestScore = score;
+    }
+  }
+
+  if (best) {
+    return `推荐你选择 ${best.recommendation}。原因：${best.reason}`;
+  }
+
+  return null;
+}
+
+function flattenTutorials(tutorials) {
+  const result = [];
+  Object.values(tutorials || {}).forEach((group) => {
+    if (Array.isArray(group)) {
+      group.forEach((item) => result.push(item));
+    }
+  });
+  return result;
+}
+
+function handleTutorialQuery(userMessage, kb) {
+  const text = normalize(userMessage);
+  const tutorials = flattenTutorials(kb.tutorials);
+
+  let best = null;
+  let bestScore = 0;
+
+  for (const item of tutorials) {
+    const corpus = normalize(JSON.stringify(item));
+    let score = 0;
+
+    const keywords = text.split(/\s+/).filter(Boolean);
+    for (const kw of keywords) {
+      if (corpus.includes(kw)) score += 1;
+    }
+
+    if (score > bestScore) {
+      best = item;
+      bestScore = score;
+    }
+  }
+
+  if (!best || bestScore === 0) return null;
+
+  if (best.steps) {
+    return `${best.title}\n${best.steps.map((s, i) => `${i + 1}. ${s}`).join("\n")}`;
+  }
+
+  if (best.methods) {
+    return `${best.title}\n${best.methods
+      .map((m) => `${m.name}：${m.steps.join("；")}`)
+      .join("\n")}`;
+  }
+
+  if (best.content) {
+    return `${best.title}\n${best.content}`;
+  }
+
+  return null;
+}
+
+function handleFormatQuery(userMessage, kb) {
+  const text = normalize(userMessage);
+  const formats = kb.formats || {};
+
+  const all = [
+    ...(formats.native_supported || []).map((x) => ({ ...x, group: "原生支持" })),
+    ...(formats.via_conversion || []).map((x) => ({ ...x, group: "需转换后支持" })),
+    ...(formats.not_supported || []).map((x) => ({ ...x, group: "不支持" })),
+  ];
+
+  for (const item of all) {
+    if (text.includes(normalize(item.format))) {
+      return `${item.format}：${item.group}。${item.notes || ""}`;
+    }
+  }
+
+  if (text.includes("支持什么格式") || text.includes("格式")) {
+    return `Kindle 常见格式支持如下：
+原生支持：${(formats.native_supported || []).map((x) => x.format).join("、")}
+需转换：${(formats.via_conversion || []).map((x) => x.format).join("、")}
+不支持：${(formats.not_supported || []).map((x) => x.format).join("、")}`;
+  }
+
+  return null;
+}
+
+function handleCompareQuery(userMessage, kb) {
+  const text = normalize(userMessage);
+  const models = kb.models || [];
+
+  const matched = models.filter((m) => {
+    const corpus = normalize(`${m.name} ${m.series} ${m.generation}`);
+    return text.includes(normalize(m.name)) || text.includes(normalize(m.series)) || corpus.includes(text);
+  });
+
+  if (matched.length >= 2) {
+    const [a, b] = matched.slice(0, 2);
+    return `${a.name} 与 ${b.name} 的主要区别：
+1. 屏幕：${JSON.stringify(a.display)} vs ${JSON.stringify(b.display)}
+2. 存储：${(a.storage_gb || []).join("/")}GB vs ${(b.storage_gb || []).join("/")}GB
+3. 防水：${a.waterproof_ipx || "否"} vs ${b.waterproof_ipx || "否"}
+4. 适合人群：${a.best_for || "暂无"} vs ${b.best_for || "暂无"}`;
+  }
+
+  // 支持 “Kindle 和 iPad 哪个好” 这种 FAQ
+  const faqHit = (kb.faq || []).find((x) => text.includes(normalize(x.q)) || normalize(x.q).includes(text));
+  if (faqHit) return faqHit.a;
+
+  return null;
+}
+
+
 const synonymMap = {
   护眼: "暖光",
   伤眼: "暖光",
@@ -157,22 +475,50 @@ export async function POST(req) {
       );
     }
 
-    // ① 先查本地知识库
-    const hits = localSearch(userMessage);
+export async function POST(req) {
+  try {
+    const body = await req.json();
+    const messages = Array.isArray(body.messages) ? body.messages : [];
+    const userMessage = messages[messages.length - 1]?.content || "";
 
-    if (hits.length > 0) {
-      const reply = generateAnswer(hits[0]);
+    if (!userMessage) {
+      return new Response(JSON.stringify({ error: "缺少用户消息内容" }), {
+        status: 400,
+      });
+    }
 
+    const intent = detectIntent(userMessage);
+    let localReply = null;
+
+    if (intent === INTENTS.COLOR_INFO) {
+      localReply = handleColorQuery(userMessage, kb);
+    } else if (intent === INTENTS.RECOMMEND) {
+      localReply = handleRecommendQuery(userMessage, kb);
+    } else if (intent === INTENTS.TUTORIAL) {
+      localReply = handleTutorialQuery(userMessage, kb);
+    } else if (intent === INTENTS.FORMAT) {
+      localReply = handleFormatQuery(userMessage, kb);
+    } else if (intent === INTENTS.COMPARE) {
+      localReply = handleCompareQuery(userMessage, kb);
+    } else {
+      const hits = localSearch(userMessage);
+      if (hits.length > 0 && hits[0].score >= 2) {
+        localReply = generateAnswer(hits[0]);
+      }
+    }
+
+    if (localReply) {
       return new Response(
         JSON.stringify({
-          reply,
+          reply: localReply,
           source: "local",
+          intent,
         }),
         { status: 200 }
       );
     }
 
-    // ② 未命中，再走 DeepSeek
+    // 本地没命中，再走 DeepSeek
     const upstream = await fetch("https://api.deepseek.com/chat/completions", {
       method: "POST",
       headers: {
@@ -207,6 +553,7 @@ export async function POST(req) {
       JSON.stringify({
         reply,
         source: "deepseek",
+        intent,
       }),
       { status: 200 }
     );
