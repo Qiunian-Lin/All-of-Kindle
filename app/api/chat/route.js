@@ -6,8 +6,7 @@ import path from "path";
 const filePath = path.join(process.cwd(), "data", "kindle.json");
 const kb = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-function normalize(text: unknown) {
-  return String(text || "").toLowerCase().trim();
+
 }
 
 function buildChunks(kb: any) {
