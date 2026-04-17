@@ -591,7 +591,7 @@ export default function App() {
       {/* FOOTER */}
       <footer className="footer">
         <p>© 2025 <span>All of Kindle</span> — 非官方独立参考站，与亚马逊无关联</p>
-        <p>AI 问答由 <span>Claude (Anthropic)</span> 驱动 · 数据仅供参考，请以官网为准</p>
+        <p>AI 问答由 <span>DeepSeek AI</span> 驱动 · 数据仅供参考，请以官网为准</p>
       </footer>
     </>
   );
