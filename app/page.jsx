@@ -1064,10 +1064,21 @@ function ChatSection() {
         </div>
         {renderProfileTags()}
         <div className="chat-input-row">
-          <input className="chat-input" value={input} onChange={e=>setInput(e.target.value)}
-            onKeyDown={e=>e.key==="Enter"&&send()}
-            placeholder="输入你的 Kindle 问题……按 Enter 发送" disabled={loading}/>
-          <button className="chat-send" onClick={()=>send()} disabled={loading}>发送</button>
+<input 
+  className="chat-input" 
+  value={input} 
+  onChange={e=>setInput(e.target.value)}
+  onKeyDown={e=>e.key==="Enter"&&send()}
+  placeholder="输入你的 Kindle 问题……按 Enter 发送" 
+  disabled={loading}
+/>
+<button 
+  className="chat-send" 
+  onClick={() => send()} 
+  disabled={loading}
+>
+发送
+</button>
         </div>
       </div>
     </section>
