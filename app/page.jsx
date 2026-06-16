@@ -287,6 +287,47 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .source-badge.deepseek{background:rgba(200,134,10,.1);color:var(--amber);border:1px solid rgba(200,134,10,.25);}
 .memory-hint{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:#4a3a20;padding:.5rem 0;text-align:center;opacity:.6;}
 
+/* ── 登录注册模态框 ── */
+.auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:flex;align-items:center;justify-content:center;animation:fadeIn .2s ease;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.auth-modal{background:#fdfaf4;border-radius:4px;padding:2.4rem 2.2rem;width:100%;max-width:400px;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.25);}
+.auth-modal-close{position:absolute;top:1rem;right:1rem;background:transparent;border:none;font-size:1.2rem;cursor:pointer;color:#8a7a60;line-height:1;}
+.auth-modal-title{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:.3rem;}
+.auth-modal-title em{color:#c0392b;font-style:italic;}
+.auth-modal-sub{font-size:.8rem;color:#8a7a60;margin-bottom:1.8rem;}
+.auth-field{margin-bottom:1.1rem;}
+.auth-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:#8a7a60;display:block;margin-bottom:.45rem;}
+.auth-input{width:100%;background:#f5f0e8;border:1px solid #d4c8a8;border-radius:2px;padding:.7rem .9rem;font-size:.9rem;font-family:'Noto Serif SC',serif;color:#1a1208;outline:none;transition:border-color .2s;}
+.auth-input:focus{border-color:#c8860a;}
+.auth-input::placeholder{color:#b0a080;}
+.auth-error{font-size:.75rem;color:#c0392b;margin-top:.35rem;font-family:'JetBrains Mono',monospace;}
+.auth-btn-primary{width:100%;background:#1a1208;color:#f5f0e8;border:none;padding:.9rem;font-family:'JetBrains Mono',monospace;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .2s;margin-top:.4rem;}
+.auth-btn-primary:hover{background:#2a2010;}
+.auth-btn-primary:disabled{opacity:.45;cursor:not-allowed;}
+.auth-btn-secondary{width:100%;background:#fdfaf4;color:#1a1208;border:1px solid #d4c8a8;padding:.85rem;font-family:'JetBrains Mono',monospace;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;margin-top:.5rem;}
+.auth-btn-secondary:hover{border-color:#c8860a;color:#c8860a;}
+.auth-switch{text-align:center;margin-top:1.2rem;font-size:.78rem;color:#8a7a60;}
+.auth-switch button{background:transparent;border:none;color:#c8860a;cursor:pointer;font-size:.78rem;font-family:inherit;text-decoration:underline;text-underline-offset:2px;}
+
+/* ── 用户状态栏 ── */
+.user-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding:.6rem .9rem;background:#141008;border:1px solid #2a2010;border-radius:2px;}
+.user-bar-info{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.08em;}
+.user-bar-name{color:var(--amber);}
+.user-bar-count{color:#3a2a10;margin-left:.6rem;}
+.user-bar-actions{display:flex;gap:.5rem;}
+.user-bar-btn{font-family:'JetBrains Mono',monospace;font-size:.58rem;padding:.22rem .6rem;border:1px solid #3a2020;background:transparent;color:#6a3a30;cursor:pointer;border-radius:2px;transition:all .15s;}
+.user-bar-btn:hover{border-color:#c0392b;color:#c0392b;}
+.user-bar-login{font-family:'JetBrains Mono',monospace;font-size:.62rem;padding:.28rem .75rem;border:1px solid var(--amber);background:transparent;color:var(--amber);cursor:pointer;border-radius:2px;transition:all .15s;letter-spacing:.06em;}
+.user-bar-login:hover{background:var(--amber);color:var(--ink);}
+
+/* ── 画像 & 来源标签 ── */
+.profile-bar{display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;flex-wrap:wrap;}
+.profile-tag{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.06em;padding:.2rem .55rem;border:1px solid #3a3020;color:#8a7a50;border-radius:2px;background:transparent;}
+.profile-tag.active{border-color:var(--amber);color:var(--amber);}
+.source-badge{font-family:'JetBrains Mono',monospace;font-size:.56rem;letter-spacing:.06em;padding:.1rem .4rem;border-radius:2px;display:inline-block;margin-top:.4rem;}
+.source-badge.local{background:rgba(45,122,58,.15);color:#2d7a3a;border:1px solid rgba(45,122,58,.3);}
+.source-badge.deepseek{background:rgba(200,134,10,.1);color:var(--amber);border:1px solid rgba(200,134,10,.25);}
+.memory-hint{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:#4a3a20;letter-spacing:.05em;padding:.5rem 0 .2rem;text-align:center;opacity:.6;}
 `;
 
 // ─── QUIZ SECTION ────────────────────────────────────────────────────────────
@@ -633,76 +674,303 @@ export function getVisitorId() {
   return id;
 }
 
-function ChatSection({ externalPrompt, onExternalPromptUsed }) {
+// ── 登录注册模态框组件 ─────────────────────────────────────
+
+function AuthModal({ onClose, onSuccess }) {
+  const [mode, setMode] = useState("login"); // "login" | "register"
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit() {
+    setError("");
+    if (!username.trim() || !password.trim()) {
+      setError("请填写用户名和密码");
+      return;
+    }
+    setLoading(true);
+    try {
+      const endpoint = mode === "login" ? "/api/auth/login" : "/api/auth/register";
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: username.trim(), password }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setError(data.error || "操作失败"); return; }
+
+      if (mode === "register") {
+        // 注册成功后自动登录
+        const loginRes = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username: username.trim(), password }),
+        });
+        const loginData = await loginRes.json();
+        if (loginData.token) {
+          localStorage.setItem("aok_token", loginData.token);
+          localStorage.setItem("aok_username", loginData.username);
+          onSuccess(loginData.username, loginData.token);
+        }
+      } else {
+        localStorage.setItem("aok_token", data.token);
+        localStorage.setItem("aok_username", data.username);
+        onSuccess(data.username, data.token);
+      }
+    } catch (e) {
+      setError("网络错误，请稍后重试");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="auth-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
+      <div className="auth-modal">
+        <button className="auth-modal-close" onClick={onClose}>✕</button>
+        <div className="auth-modal-title">
+          VIU <em>Advanced</em>
+        </div>
+        <div className="auth-modal-sub">
+          {mode === "login" ? "登录后数据云端保存" : "注册后跨设备同步对话记忆"}
+        </div>
+
+        <div className="auth-field">
+          <label className="auth-label">用户名</label>
+          <input
+            className="auth-input"
+            type="text"
+            placeholder="用户名"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            onKeyDown={e => e.key === "Enter" && handleSubmit()}
+            autoFocus
+          />
+        </div>
+
+        <div className="auth-field">
+          <label className="auth-label">密码</label>
+          <input
+            className="auth-input"
+            type="password"
+            placeholder={mode === "register" ? "密码（至少 4 位）" : "密码"}
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            onKeyDown={e => e.key === "Enter" && handleSubmit()}
+          />
+          {error && <div className="auth-error">{error}</div>}
+        </div>
+
+        <button className="auth-btn-primary" onClick={handleSubmit} disabled={loading}>
+          {loading ? "处理中…" : mode === "login" ? "登录" : "注册"}
+        </button>
+        <button
+          className="auth-btn-secondary"
+          onClick={() => { setMode(m => m === "login" ? "register" : "login"); setError(""); }}
+        >
+          {mode === "login" ? "注册" : "返回登录"}
+        </button>
+
+        <div className="auth-switch">
+          {mode === "login"
+            ? <>没有账号？<button onClick={() => { setMode("register"); setError(""); }}>立即注册</button></>
+            : <>已有账号？<button onClick={() => { setMode("login"); setError(""); }}>直接登录</button></>
+          }
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── ChatSection ────────────────────────────────────────────
+
+function ChatSection() {
   const [msgs, setMsgs] = useState([
-    { role:"ai", html:"你好！我是 <strong>Kindle 助手</strong>，专门解答关于 Kindle 的一切问题 📖<br><br>型号选购、格式推送、字体安装、越狱教程、故障排查……都可以问我～<br><br><em style='color:var(--amber);font-size:.8rem;font-style:normal'>💡 我会记住你的偏好，越聊越懂你的需求。</em>" }
+    { role: "ai", html: "你好！我是 <strong>Kindle 助手</strong>，专门解答关于 Kindle 的一切问题 📖<br><br>型号选购、格式推送、字体安装、越狱教程、故障排查……都可以问我～<br><br><em style='color:var(--amber);font-size:.8rem;font-style:normal'>💡 登录后 AI 将记住你的偏好，越聊越懂你的需求。</em>" }
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [history, setHistory] = useState([]);
   const [profile, setProfile] = useState(null);
-  const [uid, setUidState] = useState("");
-  const [showUidPanel, setShowUidPanel] = useState(false);
-  const [uidInputVal, setUidInputVal] = useState("");
-  const [copied, setCopied] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
+  const [username, setUsername] = useState(null);
+  const [token, setToken] = useState(null);
   const boxRef = useRef(null);
 
+  // 初始化：从 localStorage 读取登录状态
   useEffect(() => {
-  setUidState(getVisitorId());
-}, []);
-  useEffect(() => { if(boxRef.current) boxRef.current.scrollTop = boxRef.current.scrollHeight; }, [msgs, loading]);
-  // 接收问卷传来的 prompt，自动发送
-  useEffect(() => {
-    if (externalPrompt) {
-      send(externalPrompt);
-      onExternalPromptUsed?.();
+    const savedToken = localStorage.getItem("aok_token");
+    const savedUser = localStorage.getItem("aok_username");
+    if (savedToken && savedUser) {
+      setToken(savedToken);
+      setUsername(savedUser);
     }
-}, [externalPrompt]);
+  }, []);
 
-  function copyUID() {
-    navigator.clipboard?.writeText(uid).then(() => { setCopied(true); setTimeout(()=>setCopied(false),2000); });
+  useEffect(() => {
+    if (boxRef.current) boxRef.current.scrollTop = boxRef.current.scrollHeight;
+  }, [msgs, loading]);
+
+  function handleAuthSuccess(user, tok) {
+    setUsername(user);
+    setToken(tok);
+    setShowAuth(false);
+    setMsgs(m => [...m, {
+      role: "ai",
+      html: `欢迎，<strong style="color:var(--amber)">${user}</strong>！你的对话记忆已云端同步 ☁️`
+    }]);
   }
 
-  function applyManualUID() {
-    const clean = uidInputVal.replace(/[\s-]/g,"").toUpperCase();
-    if (clean.length !== 8) { alert("请输入 8 位字符，如 ABCD-1234"); return; }
-    const fmt = `${clean.slice(0,4)}-${clean.slice(4)}`;
-    localStorage.setItem("kindle_visitor_id", fmt);
-    setUidState(fmt); setUidInputVal(""); setShowUidPanel(false);
-    setProfile(null); setHistory([]);
-    setMsgs([{ role:"ai", html:`UID 已切换为 <code style="color:var(--amber);font-family:'JetBrains Mono',monospace">${fmt}</code><br>已加载该 ID 的历史偏好，继续聊吧 ✓` }]);
-  }
-
-  function resetUID() {
-    if (!confirm("确认重置？将生成全新 UID，当前记忆无法找回。")) return;
-    localStorage.removeItem("aok_uid");
-    const newId = getVisitorId();
-    setUidState(newId); setProfile(null); setHistory([]); setShowUidPanel(false);
-    setMsgs([{ role:"ai", html:"已重置身份 🔄<br>你好，我是 <strong>Kindle 助手</strong>，请问有什么想了解的？" }]);
+  function handleLogout() {
+    if (!confirm("确认退出登录？")) return;
+    localStorage.removeItem("aok_token");
+    localStorage.removeItem("aok_username");
+    setUsername(null);
+    setToken(null);
+    setProfile(null);
+    setHistory([]);
+    setMsgs([{ role: "ai", html: "已退出登录。你好，我是 <strong>Kindle 助手</strong>，请问有什么想了解的？" }]);
   }
 
   async function send(text) {
-    const q = (text||input).trim();
-    if (!q||loading) return;
+    const q = (text || input).trim();
+    if (!q || loading) return;
     setInput("");
-    setMsgs(m=>[...m,{role:"user",html:fmtMsg(q)}]);
-    const nh = [...history,{role:"user",content:q}];
-    setHistory(nh); setLoading(true);
+    setMsgs(m => [...m, { role: "user", html: fmtMsg(q) }]);
+    const nh = [...history, { role: "user", content: q }];
+    setHistory(nh);
+    setLoading(true);
+
     try {
-      const res = await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({visitorId:uid,messages:nh})});
+      const headers = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ messages: nh }),
+      });
+
       const data = await res.json();
-      const reply = data.reply||"未收到有效回复";
+      const reply = data.reply || "未收到有效回复";
+      const source = data.source || "deepseek";
+
       if (data.profile) setProfile(data.profile);
-      const badge = data.source==="local"
+
+      const badge = source === "local"
         ? `<span class="source-badge local">📚 本地知识库</span>`
         : `<span class="source-badge deepseek">✦ DeepSeek AI</span>`;
-      setMsgs(m=>[...m,{role:"ai",html:fmtMsg(reply)+"<br>"+badge}]);
-      setHistory(h=>[...h,{role:"assistant",content:reply}]);
-    } catch(e) {
-      setMsgs(m=>[...m,{role:"ai",html:`请求失败：${e.message}`}]);
+
+      setMsgs(m => [...m, { role: "ai", html: fmtMsg(reply) + "<br>" + badge }]);
+      setHistory(h => [...h, { role: "assistant", content: reply }]);
+    } catch (e) {
+      setMsgs(m => [...m, { role: "ai", html: `请求失败：${e.message}` }]);
     }
     setLoading(false);
   }
+
+  function renderProfileTags() {
+    if (!profile || profile.messageCount < 2 || !username) return null;
+    const tags = [];
+    if (profile.budget) {
+      const l = { low: "💰 入门预算", mid: "💳 中等预算", high: "💎 高端预算" };
+      tags.push(l[profile.budget]);
+    }
+    const ucm = { manga: "🎨 看漫画", notes: "✏️ 做笔记", pdf: "📄 看PDF", reading: "📖 纯阅读", study: "🎓 学习" };
+    profile.useCase?.slice(0, 2).forEach(u => { if (ucm[u]) tags.push(ucm[u]); });
+    if (profile.needWaterproof) tags.push("💧 防水");
+    if (profile.needColor) tags.push("🌈 彩色屏");
+    if (profile.needStylus) tags.push("🖊️ 手写笔");
+    if (!tags.length) return null;
+    return (
+      <div className="profile-bar">
+        <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".56rem", color: "#4a3a20" }}>我的偏好：</span>
+        {tags.map((t, i) => <span key={i} className="profile-tag active">{t}</span>)}
+      </div>
+    );
+  }
+
+  return (
+    <section className="chat-section" id="chat-section">
+      {showAuth && <AuthModal onClose={() => setShowAuth(false)} onSuccess={handleAuthSuccess} />}
+
+      <div className="chat-wrapper">
+        <div className="chat-sec-label">// AI 智能问答</div>
+        <div className="chat-sec-title">问问 Kindle 助手</div>
+
+        {/* 用户状态栏 */}
+        <div className="user-bar">
+          {username ? (
+            <>
+              <div className="user-bar-info">
+                <span style={{ color: "#4a3a20" }}>已登录：</span>
+                <span className="user-bar-name">{username}</span>
+                {profile?.messageCount > 0 && (
+                  <span className="user-bar-count">· {profile.messageCount} 条对话记忆</span>
+                )}
+              </div>
+              <div className="user-bar-actions">
+                <button className="user-bar-btn" onClick={handleLogout}>退出</button>
+              </div>
+            </>
+          ) : (
+            <>
+              <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", color: "#3a2a10", letterSpacing: ".06em" }}>
+                未登录 · 对话记忆不会保存
+              </span>
+              <button className="user-bar-login" onClick={() => setShowAuth(true)}>登录 / 注册</button>
+            </>
+          )}
+        </div>
+
+        <div className="chat-sec-sub">
+          由 DeepSeek AI 驱动，支持型号选购、使用教程、越狱指南、故障排查等问题。
+        </div>
+
+        <div className="quick-row">
+          {QUICK_Q.map(q => (
+            <button key={q} className="quick-btn" onClick={() => send(q)}>
+              {q.length > 16 ? q.slice(0, 16) + "…" : q}
+            </button>
+          ))}
+        </div>
+
+        <div className="chat-box" ref={boxRef}>
+          {msgs.map((m, i) => (
+            <div key={i} className={`msg ${m.role}`}>
+              <div className="msg-av">{m.role === "ai" ? "K" : username ? username[0].toUpperCase() : "U"}</div>
+              <div className="msg-bubble" dangerouslySetInnerHTML={{ __html: m.html }} />
+            </div>
+          ))}
+          {loading && (
+            <div className="msg ai">
+              <div className="msg-av">K</div>
+              <div className="msg-bubble"><div className="dots"><div className="dot" /><div className="dot" /><div className="dot" /></div></div>
+            </div>
+          )}
+          {history.length > 5 && (
+            <div className="memory-hint">↑ 助手已记住本次对话中的偏好，推荐结果将越来越精准</div>
+          )}
+        </div>
+
+        {renderProfileTags()}
+
+        <div className="chat-input-row">
+          <input
+            className="chat-input"
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            onKeyDown={e => e.key === "Enter" && send()}
+            placeholder="输入你的 Kindle 问题……按 Enter 发送"
+            disabled={loading}
+          />
+          <button className="chat-send" onClick={() => send()} disabled={loading}>发送</button>
+        </div>
+      </div>
+    </section>
+  );
+}
 
   function renderProfileTags() {
     if (!profile||profile.messageCount<2) return null;
