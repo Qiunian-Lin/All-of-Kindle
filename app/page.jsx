@@ -82,32 +82,16 @@ const globalCSS = `
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 
-#models {
-  scroll-margin-top: 35px;
-}
-
-#compare {
-  scroll-margin-top: 80px;
-}
-
-#tutorials {
-  scroll-margin-top: 70px;
-}
-
-#quiz-section {
-  scroll-margin-top: 70px;
-}
-
-#chat-section {
-  scroll-margin-top: 40px;
-}
+#models { scroll-margin-top: 35px; }
+#compare { scroll-margin-top: 80px; }
+#tutorials { scroll-margin-top: 70px; }
+#quiz-section { scroll-margin-top: 70px; }
+#chat-section { scroll-margin-top: 40px; }
 
 body{font-family:'Noto Serif SC',serif;background:var(--paper);color:var(--ink);overflow-x:hidden;}
 
-/* grain */
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.6;}
 
-/* nav */
 .nav{position:sticky;top:0;z-index:200;background:var(--ink);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:54px;border-bottom:2px solid var(--amber);}
 .nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--paper);letter-spacing:.05em;}
 .nav-logo em{color:var(--amber);font-style:italic;}
@@ -115,7 +99,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .nav-links a{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#b0a080;text-decoration:none;letter-spacing:.12em;text-transform:uppercase;transition:color .2s;cursor:pointer;}
 .nav-links a:hover{color:var(--amber-light);}
 
-/* hero */
 .hero{background:var(--ink);color:var(--paper);padding:5rem 3rem 4.5rem;position:relative;overflow:hidden;}
 .hero::after{content:'📖';position:absolute;right:6%;top:50%;transform:translateY(-50%);font-size:10rem;opacity:.06;pointer-events:none;}
 .hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.28em;color:var(--amber);text-transform:uppercase;margin-bottom:1.2rem;}
@@ -126,17 +109,14 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .stat-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--amber);}
 .stat-lbl{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#6a5a40;margin-top:.2rem;}
 
-/* section */
 .section{padding:4rem 3rem;max-width:1140px;margin:0 auto;}
 .sec-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--amber);margin-bottom:.7rem;}
 .sec-title{font-family:'Playfair Display',serif;font-size:1.9rem;margin-bottom:2.5rem;border-bottom:1px solid var(--border);padding-bottom:.8rem;}
 
-/* filter */
 .filter-tabs{display:flex;gap:.6rem;margin-bottom:2rem;flex-wrap:wrap;}
 .ftab{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.4rem 1rem;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;border-radius:2px;transition:all .2s;}
 .ftab:hover,.ftab.active{background:var(--amber);color:var(--ink);border-color:var(--amber);}
 
-/* cards */
 .kindle-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:1.4rem;}
 .kindle-card{background:var(--white);border:1px solid var(--border);border-radius:2px;padding:1.8rem 1.6rem;transition:transform .2s,box-shadow .2s,border-color .2s;position:relative;overflow:hidden;}
 .kindle-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--amber);transition:height .25s;}
@@ -153,7 +133,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .card-highlight{font-size:.78rem;color:var(--muted);margin-top:.9rem;padding-top:.8rem;border-top:1px solid var(--border);line-height:1.6;}
 .card-highlight strong{color:var(--amber);}
 
-/* compare */
 .compare-wrap{overflow-x:auto;}
 .compare-table{width:100%;border-collapse:collapse;font-size:.8rem;background:var(--white);}
 .compare-table th{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.85rem .9rem;text-align:left;background:var(--ink);color:var(--paper);border-bottom:2px solid var(--amber);}
@@ -163,7 +142,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .compare-table tr.hl td{background:rgba(200,134,10,.07);}
 .chk{color:#2d7a3a;font-weight:bold;}.crs{color:#9a4a3a;}
 
-/* tutorials */
 .tut-list{display:grid;gap:.9rem;}
 .tut-item{background:var(--white);border:1px solid var(--border);cursor:pointer;transition:border-color .2s;}
 .tut-item.open{border-color:var(--amber);}
@@ -185,7 +163,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .tut-body .tip{background:rgba(200,134,10,.08);border-left:3px solid var(--amber);padding:.7rem 1rem;margin:.8rem 0;font-size:.82rem;}
 .tut-body strong{color:var(--ink);font-weight:600;}
 
-/* ── 选购问卷 ── */
 .quiz-section{background:var(--warm);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3.5rem 0;}
 .quiz-wrapper{max-width:700px;margin:0 auto;padding:0 2rem;}
 .quiz-sec-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--amber);margin-bottom:.6rem;}
@@ -221,7 +198,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .quiz-reset{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--muted);background:transparent;border:none;cursor:pointer;margin-top:1rem;text-decoration:underline;text-underline-offset:3px;}
 .quiz-reset:hover{color:var(--ink);}
 
-/* chat section */
 .chat-section{background:var(--ink);padding:4.5rem 0;}
 .chat-wrapper{max-width:780px;margin:0 auto;padding:0 2rem;}
 .chat-sec-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--amber);margin-bottom:.7rem;}
@@ -256,38 +232,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .chat-send:hover{background:var(--amber-light);}
 .chat-send:disabled{opacity:.45;cursor:not-allowed;}
 
-/* footer */
 .footer{background:var(--ink);border-top:1px solid #1e1808;padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;}
 .footer p{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:#3a2a10;letter-spacing:.08em;}
 .footer p span{color:var(--amber);}
 
-@media(max-width:640px){
-  .nav{padding:0 1rem;}.nav-links{gap:1rem;}
-  .hero,.section{padding:2.5rem 1.2rem;}.hero h1{font-size:2.1rem;}.hero-stats{gap:1.5rem;}
-  .footer{padding:1.5rem 1.2rem;flex-direction:column;}
-  .tut-body{padding-left:1.5rem;}
-}
-
-.uid-panel{background:#141008;border:1px solid #2a2010;border-radius:2px;padding:.9rem 1.2rem;margin-bottom:1rem;display:flex;flex-direction:column;gap:.7rem;}
-.uid-label{font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:#4a3a20;margin-bottom:.2rem;}
-.uid-code{font-family:'JetBrains Mono',monospace;font-size:1rem;color:var(--amber);letter-spacing:.18em;}
-.uid-btn{font-family:'JetBrains Mono',monospace;font-size:.58rem;padding:.28rem .7rem;border:1px solid #3a3020;background:transparent;color:#6a5a40;cursor:pointer;border-radius:2px;letter-spacing:.06em;transition:all .15s;}
-.uid-btn:hover{border-color:var(--amber);color:var(--amber);}
-.uid-tip{font-family:'JetBrains Mono',monospace;font-size:.57rem;color:#4a3a20;line-height:1.7;}
-.uid-input-row{display:flex;gap:.5rem;}
-.uid-input{flex:1;font-family:'JetBrains Mono',monospace;font-size:.78rem;background:#1e1808;border:1px solid #3a3020;color:var(--paper);padding:.35rem .7rem;border-radius:2px;outline:none;letter-spacing:.1em;}
-.uid-input:focus{border-color:var(--amber);}
-.uid-input::placeholder{color:#3a2a10;letter-spacing:0;}
-.uid-confirm{font-family:'JetBrains Mono',monospace;font-size:.6rem;padding:.35rem .85rem;background:var(--amber);color:var(--ink);border:none;cursor:pointer;border-radius:2px;font-weight:700;white-space:nowrap;}
-.profile-bar{display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;flex-wrap:wrap;}
-.profile-tag{font-family:'JetBrains Mono',monospace;font-size:.58rem;padding:.2rem .55rem;border:1px solid #3a3020;color:#8a7a50;border-radius:2px;}
-.profile-tag.active{border-color:var(--amber);color:var(--amber);}
-.source-badge{font-family:'JetBrains Mono',monospace;font-size:.56rem;padding:.1rem .4rem;border-radius:2px;display:inline-block;margin-top:.4rem;}
-.source-badge.local{background:rgba(45,122,58,.15);color:#2d7a3a;border:1px solid rgba(45,122,58,.3);}
-.source-badge.deepseek{background:rgba(200,134,10,.1);color:var(--amber);border:1px solid rgba(200,134,10,.25);}
-.memory-hint{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:#4a3a20;padding:.5rem 0;text-align:center;opacity:.6;}
-
-/* ── 登录注册模态框 ── */
 .auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:flex;align-items:center;justify-content:center;animation:fadeIn .2s ease;}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .auth-modal{background:#fdfaf4;border-radius:4px;padding:2.4rem 2.2rem;width:100%;max-width:400px;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.25);}
@@ -309,7 +257,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .auth-switch{text-align:center;margin-top:1.2rem;font-size:.78rem;color:#8a7a60;}
 .auth-switch button{background:transparent;border:none;color:#c8860a;cursor:pointer;font-size:.78rem;font-family:inherit;text-decoration:underline;text-underline-offset:2px;}
 
-/* ── 用户状态栏 ── */
 .user-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding:.6rem .9rem;background:#141008;border:1px solid #2a2010;border-radius:2px;}
 .user-bar-info{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.08em;}
 .user-bar-name{color:var(--amber);}
@@ -320,7 +267,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .user-bar-login{font-family:'JetBrains Mono',monospace;font-size:.62rem;padding:.28rem .75rem;border:1px solid var(--amber);background:transparent;color:var(--amber);cursor:pointer;border-radius:2px;transition:all .15s;letter-spacing:.06em;}
 .user-bar-login:hover{background:var(--amber);color:var(--ink);}
 
-/* ── 画像 & 来源标签 ── */
 .profile-bar{display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;flex-wrap:wrap;}
 .profile-tag{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.06em;padding:.2rem .55rem;border:1px solid #3a3020;color:#8a7a50;border-radius:2px;background:transparent;}
 .profile-tag.active{border-color:var(--amber);color:var(--amber);}
@@ -328,9 +274,16 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .source-badge.local{background:rgba(45,122,58,.15);color:#2d7a3a;border:1px solid rgba(45,122,58,.3);}
 .source-badge.deepseek{background:rgba(200,134,10,.1);color:var(--amber);border:1px solid rgba(200,134,10,.25);}
 .memory-hint{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:#4a3a20;letter-spacing:.05em;padding:.5rem 0 .2rem;text-align:center;opacity:.6;}
+
+@media(max-width:640px){
+  .nav{padding:0 1rem;}.nav-links{gap:1rem;}
+  .hero,.section{padding:2.5rem 1.2rem;}.hero h1{font-size:2.1rem;}.hero-stats{gap:1.5rem;}
+  .footer{padding:1.5rem 1.2rem;flex-direction:column;}
+  .tut-body{padding-left:1.5rem;}
+}
 `;
 
-// ─── QUIZ SECTION ────────────────────────────────────────────────────────────
+// ─── QUIZ ────────────────────────────────────────────────────────────────────
 
 const QUIZ_STEPS = [
   {
@@ -365,106 +318,67 @@ const QUIZ_STEPS = [
   },
 ];
 
-// 根据三个维度输出推荐结果
 function calcResult(budget, usecase, feature) {
-  // Scribe 系列（笔记需求）
   if (usecase === "notes") {
     return {
-      model: "Kindle Scribe（第 2 代）",
-      price: "¥2,399 起",
-      reason:
-        "手写笔记是你的核心需求，Scribe 是 Kindle 全系唯一支持手写笔的型号。10.2 英寸大屏 + Premium Pen，可直接在电子书里批注，学术/工作场景首选。",
+      model: "Kindle Scribe（第 2 代）", price: "¥2,399 起",
+      reason: "手写笔记是你的核心需求，Scribe 是 Kindle 全系唯一支持手写笔的型号。10.2 英寸大屏 + Premium Pen，可直接在电子书里批注，学术/工作场景首选。",
       tags: ["10.2\" 大屏", "手写笔随附", "300 ppi", "约 12 周续航"],
       chatPrompt: "我需要用 Kindle Scribe 做笔记，它的手写功能具体怎么样？有哪些使用技巧？",
     };
   }
-
-  // 彩色需求 → Colorsoft
   if (usecase === "manga" || feature === "color") {
     return {
-      model: "Kindle Colorsoft",
-      price: "¥1,499",
-      reason:
-        "彩色 E Ink 屏幕让漫画、杂志图文栩栩如生，同时保留了电子墨水屏的护眼特性。如果你喜欢看图文内容或漫画，Colorsoft 是当前唯一的彩色 Kindle 选择。",
+      model: "Kindle Colorsoft", price: "¥1,499",
+      reason: "彩色 E Ink 屏幕让漫画、杂志图文栩栩如生，同时保留了电子墨水屏的护眼特性。如果你喜欢看图文内容或漫画，Colorsoft 是当前唯一的彩色 Kindle 选择。",
       tags: ["彩色 E Ink", "7\" 屏", "IPX8 防水", "32 GB"],
       chatPrompt: "Kindle Colorsoft 看漫画体验怎么样？色彩还原度如何？",
     };
   }
-
-  // 超高预算 + PDF → Scribe
   if (budget === "top" && usecase === "pdf") {
     return {
-      model: "Kindle Scribe（第 2 代）",
-      price: "¥2,399 起",
-      reason:
-        "10.2 英寸大屏是阅读 PDF 学术文献最舒适的 Kindle 选择，无需缩放即可阅读 A4 版面。配合手写笔可直接在文献上批注，适合研究人员和重度学术用户。",
+      model: "Kindle Scribe（第 2 代）", price: "¥2,399 起",
+      reason: "10.2 英寸大屏是阅读 PDF 学术文献最舒适的 Kindle 选择，无需缩放即可阅读 A4 版面。配合手写笔可直接在文献上批注，适合研究人员和重度学术用户。",
       tags: ["10.2\" 大屏", "PDF 批注", "手写笔", "16/32/64 GB"],
       chatPrompt: "Kindle Scribe 阅读 PDF 的体验怎么样？和普通 Kindle 差距有多大？",
     };
   }
-
-  // 低预算
   if (budget === "low") {
     return {
-      model: "Kindle 基础款（第 16 代）",
-      price: "¥558",
-      reason:
-        "预算 600 元内的最优解。6 英寸 300 ppi 高清屏，轻巧便携只有 158g，满足日常小说阅读完全够用。是体验电子墨水屏阅读性价比最高的入口。",
+      model: "Kindle 基础款（第 16 代）", price: "¥558",
+      reason: "预算 600 元内的最优解。6 英寸 300 ppi 高清屏，轻巧便携只有 158g，满足日常小说阅读完全够用。是体验电子墨水屏阅读性价比最高的入口。",
       tags: ["6\" 轻便", "300 ppi", "158g", "约 6 周续航"],
       chatPrompt: "Kindle 基础款和 Paperwhite 差距大吗？入门首选哪个？",
     };
   }
-
-  // 中等预算 + 防水 or 无线充 → Paperwhite SE
   if ((budget === "high" || budget === "top") && (feature === "wireless" || feature === "waterproof")) {
     return {
-      model: "Kindle Paperwhite Signature Edition",
-      price: "¥1,058",
-      reason:
-        "Paperwhite 系列旗舰版，在标准版基础上增加 Qi 无线充电、自动感光调节前灯和 32 GB 存储。防水 IPX8，可以在浴室或泳池边放心使用。",
+      model: "Kindle Paperwhite Signature Edition", price: "¥1,058",
+      reason: "Paperwhite 系列旗舰版，在标准版基础上增加 Qi 无线充电、自动感光调节前灯和 32 GB 存储。防水 IPX8，可以在浴室或泳池边放心使用。",
       tags: ["无线充电", "自动感光", "IPX8 防水", "32 GB"],
       chatPrompt: "Paperwhite SE 和标准版 Paperwhite 具体有哪些区别，值得多花钱吗？",
     };
   }
-
-  // 中等预算（默认） → Paperwhite 标准版
-  if (budget === "mid" || budget === "high") {
-    return {
-      model: "Kindle Paperwhite（第 12 代）",
-      price: "¥858",
-      reason:
-        "综合性价比最高的选择，也是销量最好的 Kindle。7 英寸 300 ppi 大屏 + IPX8 防水 + 12 周超长续航，满足绝大多数阅读需求。",
-      tags: ["7\" 大屏", "IPX8 防水", "300 ppi", "约 12 周续航"],
-      chatPrompt: "Kindle Paperwhite 12代有哪些值得关注的新特性？和上一代比有什么改进？",
-    };
-  }
-
-  // 兜底
   return {
-    model: "Kindle Paperwhite（第 12 代）",
-    price: "¥858",
-    reason:
-      "综合评估下来，Paperwhite 是最均衡的选择——7 英寸大屏、防水、长续航，几乎适合所有类型的读者。",
+    model: "Kindle Paperwhite（第 12 代）", price: "¥858",
+    reason: "综合性价比最高的选择，也是销量最好的 Kindle。7 英寸 300 ppi 大屏 + IPX8 防水 + 12 周超长续航，满足绝大多数阅读需求。",
     tags: ["7\" 大屏", "IPX8 防水", "300 ppi", "约 12 周续航"],
-    chatPrompt: "Kindle Paperwhite 12代的整体体验怎么样？适合我这样的用户吗？",
+    chatPrompt: "Kindle Paperwhite 12代有哪些值得关注的新特性？和上一代比有什么改进？",
   };
 }
 
 function QuizSection({ onSendToChat }) {
-  const [step, setStep] = useState(0);           // 0-2 问题，3 结果
-  const [answers, setAnswers] = useState({});    // { budget, usecase, feature }
-  const [current, setCurrent] = useState(null);  // 当前步骤的选中项
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [current, setCurrent] = useState(null);
 
   const stepKeys = ["budget", "usecase", "feature"];
-  const result = step === 3
-    ? calcResult(answers.budget, answers.usecase, answers.feature)
-    : null;
+  const result = step === 3 ? calcResult(answers.budget, answers.usecase, answers.feature) : null;
 
   function handleNext() {
     if (current === null) return;
     const key = stepKeys[step];
-    const newAnswers = { ...answers, [key]: current };
-    setAnswers(newAnswers);
+    setAnswers(a => ({ ...a, [key]: current }));
     setCurrent(null);
     setStep(s => s + 1);
   }
@@ -475,14 +389,9 @@ function QuizSection({ onSendToChat }) {
     setStep(s => s - 1);
   }
 
-  function reset() {
-    setStep(0);
-    setAnswers({});
-    setCurrent(null);
-  }
+  function reset() { setStep(0); setAnswers({}); setCurrent(null); }
 
   function sendToChat(prompt) {
-    // 滚动到 AI 问答区并触发预填问题
     document.getElementById("chat-section")?.scrollIntoView({ behavior: "smooth" });
     onSendToChat?.(prompt);
   }
@@ -492,87 +401,46 @@ function QuizSection({ onSendToChat }) {
       <div className="quiz-wrapper">
         <div className="quiz-sec-label">// 选购向导</div>
         <div className="quiz-sec-title">3 步找到适合你的 Kindle</div>
-        <div className="quiz-sec-sub">
-          回答几个简单问题，我们帮你从全系列中精准匹配——不用自己看参数表。
-        </div>
+        <div className="quiz-sec-sub">回答几个简单问题，我们帮你从全系列中精准匹配——不用自己看参数表。</div>
 
-        {/* 步骤指示器 */}
         {step < 3 && (
           <div className="quiz-steps">
             {QUIZ_STEPS.map((_, i) => (
-              <div
-                key={i}
-                className={`quiz-step-dot ${i < step ? "done" : ""} ${i === step ? "active" : ""}`}
-              />
+              <div key={i} className={`quiz-step-dot ${i < step ? "done" : ""} ${i === step ? "active" : ""}`} />
             ))}
             <span className="quiz-step-label">步骤 {step + 1} / {QUIZ_STEPS.length}</span>
           </div>
         )}
 
-        {/* 问题区域 */}
         {step < 3 && (
           <>
             <div className="quiz-q">{QUIZ_STEPS[step].question}</div>
             <div className="quiz-options">
               {QUIZ_STEPS[step].options.map(opt => (
-                <button
-                  key={opt.value}
-                  className={`quiz-opt${current === opt.value ? " selected" : ""}`}
-                  onClick={() => setCurrent(opt.value)}
-                >
+                <button key={opt.value} className={`quiz-opt${current === opt.value ? " selected" : ""}`} onClick={() => setCurrent(opt.value)}>
                   {opt.icon} {opt.label}
                 </button>
               ))}
             </div>
             <div className="quiz-nav">
-              {step > 0 && (
-                <button className="quiz-btn-back" onClick={handleBack}>← 上一步</button>
-              )}
-              <button
-                className="quiz-btn-next"
-                onClick={handleNext}
-                disabled={current === null}
-              >
+              {step > 0 && <button className="quiz-btn-back" onClick={handleBack}>← 上一步</button>}
+              <button className="quiz-btn-next" onClick={handleNext} disabled={current === null}>
                 {step === QUIZ_STEPS.length - 1 ? "查看推荐结果 →" : "下一步 →"}
               </button>
             </div>
           </>
         )}
 
-        {/* 结果区域 */}
         {step === 3 && result && (
           <div className="quiz-result">
             <div className="quiz-result-label">✦ 为你推荐</div>
             <div className="quiz-result-model">{result.model}</div>
-            <div style={{
-              fontFamily: "'JetBrains Mono',monospace",
-              fontSize: ".9rem",
-              color: "var(--amber)",
-              marginBottom: ".8rem"
-            }}>
-              {result.price}
-            </div>
+            <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".9rem", color: "var(--amber)", marginBottom: ".8rem" }}>{result.price}</div>
             <div className="quiz-result-reason">{result.reason}</div>
-            <div className="quiz-result-tags">
-              {result.tags.map(t => (
-                <span key={t} className="quiz-result-tag">{t}</span>
-              ))}
-            </div>
+            <div className="quiz-result-tags">{result.tags.map(t => <span key={t} className="quiz-result-tag">{t}</span>)}</div>
             <div className="quiz-cta-row">
-              <button
-                className="quiz-cta-primary"
-                onClick={() => sendToChat(result.chatPrompt)}
-              >
-                继续问 AI 助手 →
-              </button>
-              <button
-                className="quiz-cta-secondary"
-                onClick={() => {
-                  document.getElementById("models")?.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                查看完整型号库
-              </button>
+              <button className="quiz-cta-primary" onClick={() => sendToChat(result.chatPrompt)}>继续问 AI 助手 →</button>
+              <button className="quiz-cta-secondary" onClick={() => document.getElementById("models")?.scrollIntoView({ behavior: "smooth" })}>查看完整型号库</button>
             </div>
             <button className="quiz-reset" onClick={reset}>重新作答</button>
           </div>
@@ -582,16 +450,14 @@ function QuizSection({ onSendToChat }) {
   );
 }
 
-
-
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 
 function fmtMsg(text) {
   return text
-    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-    .replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>")
-    .replace(/`(.*?)`/g,"<code>$1</code>")
-    .replace(/\n/g,"<br>");
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+    .replace(/`(.*?)`/g, "<code>$1</code>")
+    .replace(/\n/g, "<br>");
 }
 
 // ─── SUB-COMPONENTS ──────────────────────────────────────────────────────────
@@ -599,16 +465,12 @@ function fmtMsg(text) {
 function ModelCard({ m }) {
   return (
     <div className="kindle-card">
-      <div>{m.badges.map(b=>(
-        <span key={b.label} className="card-badge" style={{background:b.color}}>{b.label}</span>
-      ))}</div>
+      <div>{m.badges.map(b => <span key={b.label} className="card-badge" style={{ background: b.color }}>{b.label}</span>)}</div>
       <div className="card-model">{m.model}</div>
       <div className="card-gen">{m.gen}</div>
       <div className="card-price">{m.price}</div>
       <ul className="card-specs">
-        {m.specs.map(([k,v])=>(
-          <li key={k}><span>{k}</span><strong>{v}</strong></li>
-        ))}
+        {m.specs.map(([k, v]) => <li key={k}><span>{k}</span><strong>{v}</strong></li>)}
       </ul>
       <div className="card-highlight">✦ <strong>最适合</strong>：{m.highlight}</div>
     </div>
@@ -618,7 +480,7 @@ function ModelCard({ m }) {
 function TutorialItem({ t }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className={`tut-item${open?" open":""}`} onClick={()=>setOpen(!open)}>
+    <div className={`tut-item${open ? " open" : ""}`} onClick={() => setOpen(!open)}>
       <div className="tut-header">
         <div className="tut-icon">{t.icon}</div>
         <div className="tut-meta">
@@ -627,57 +489,15 @@ function TutorialItem({ t }) {
         </div>
         <div className="tut-chevron">→</div>
       </div>
-      <div className="tut-body" dangerouslySetInnerHTML={{__html:t.body}} />
+      <div className="tut-body" dangerouslySetInnerHTML={{ __html: t.body }} />
     </div>
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 替换 page.jsx 中原来的 ChatSection 函数（第 263–363 行）
-// 其余代码（MODELS、COMPARE_ROWS、TUTORIALS、QUICK_Q、SYSTEM_PROMPT、
-// globalCSS、fmtMsg、ModelCard、TutorialItem、App）全部保持不变
-// ─────────────────────────────────────────────────────────────────────────────
-
-// 新增 CSS（追加到 globalCSS 字符串末尾，在最后的反引号之前粘贴）
-// ─────────────────────────────────────────────────────────────────────────────
-/*
-.profile-bar{display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;flex-wrap:wrap;}
-.profile-tag{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.06em;padding:.2rem .55rem;border:1px solid #3a3020;color:#8a7a50;border-radius:2px;background:transparent;}
-.profile-tag.active{border-color:var(--amber);color:var(--amber);}
-.source-badge{font-family:'JetBrains Mono',monospace;font-size:.56rem;letter-spacing:.06em;padding:.1rem .4rem;border-radius:2px;display:inline-block;margin-top:.4rem;}
-.source-badge.local{background:rgba(45,122,58,.15);color:#2d7a3a;border:1px solid rgba(45,122,58,.3);}
-.source-badge.deepseek{background:rgba(200,134,10,.1);color:var(--amber);border:1px solid rgba(200,134,10,.25);}
-.memory-hint{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:#4a3a20;letter-spacing:.05em;padding:.5rem 0 .2rem;text-align:center;opacity:.6;}
-*/
-// ─────────────────────────────────────────────────────────────────────────────
-
-export function getVisitorId() {
-  if (typeof window === "undefined") {
-    return "";
-  }
-
-  const key = "kindle_visitor_id";
-  let id = window.localStorage.getItem(key);
-
-  if (!id) {
-    const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-    const randomPart = Array.from({ length: 12 }, () => {
-      return chars[Math.floor(Math.random() * chars.length)];
-    }).join("");
-
-    id = `visitor_${Date.now().toString(36)}_${randomPart}`;
-
-    window.localStorage.setItem(key, id);
-  }
-
-  return id;
-}
-
-// ── 登录注册模态框组件 ─────────────────────────────────────
+// ─── AUTH MODAL ──────────────────────────────────────────────────────────────
 
 function AuthModal({ onClose, onSuccess }) {
-  const [mode, setMode] = useState("login"); // "login" | "register"
+  const [mode, setMode] = useState("login");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -685,10 +505,7 @@ function AuthModal({ onClose, onSuccess }) {
 
   async function handleSubmit() {
     setError("");
-    if (!username.trim() || !password.trim()) {
-      setError("请填写用户名和密码");
-      return;
-    }
+    if (!username.trim() || !password.trim()) { setError("请填写用户名和密码"); return; }
     setLoading(true);
     try {
       const endpoint = mode === "login" ? "/api/auth/login" : "/api/auth/register";
@@ -701,7 +518,6 @@ function AuthModal({ onClose, onSuccess }) {
       if (!res.ok) { setError(data.error || "操作失败"); return; }
 
       if (mode === "register") {
-        // 注册成功后自动登录
         const loginRes = await fetch("/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -729,63 +545,32 @@ function AuthModal({ onClose, onSuccess }) {
     <div className="auth-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
       <div className="auth-modal">
         <button className="auth-modal-close" onClick={onClose}>✕</button>
-        <div className="auth-modal-title">
-          VIU <em>Advanced</em>
-        </div>
-        <div className="auth-modal-sub">
-          {mode === "login" ? "登录后数据云端保存" : "注册后跨设备同步对话记忆"}
-        </div>
-
+        <div className="auth-modal-title">VIU <em>Advanced</em></div>
+        <div className="auth-modal-sub">{mode === "login" ? "登录后数据云端保存" : "注册后跨设备同步对话记忆"}</div>
         <div className="auth-field">
           <label className="auth-label">用户名</label>
-          <input
-            className="auth-input"
-            type="text"
-            placeholder="用户名"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            onKeyDown={e => e.key === "Enter" && handleSubmit()}
-            autoFocus
-          />
+          <input className="auth-input" type="text" placeholder="用户名" value={username} onChange={e => setUsername(e.target.value)} onKeyDown={e => e.key === "Enter" && handleSubmit()} autoFocus />
         </div>
-
         <div className="auth-field">
           <label className="auth-label">密码</label>
-          <input
-            className="auth-input"
-            type="password"
-            placeholder={mode === "register" ? "密码（至少 4 位）" : "密码"}
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            onKeyDown={e => e.key === "Enter" && handleSubmit()}
-          />
+          <input className="auth-input" type="password" placeholder={mode === "register" ? "密码（至少 4 位）" : "密码"} value={password} onChange={e => setPassword(e.target.value)} onKeyDown={e => e.key === "Enter" && handleSubmit()} />
           {error && <div className="auth-error">{error}</div>}
         </div>
-
-        <button className="auth-btn-primary" onClick={handleSubmit} disabled={loading}>
-          {loading ? "处理中…" : mode === "login" ? "登录" : "注册"}
-        </button>
-        <button
-          className="auth-btn-secondary"
-          onClick={() => { setMode(m => m === "login" ? "register" : "login"); setError(""); }}
-        >
-          {mode === "login" ? "注册" : "返回登录"}
-        </button>
-
+        <button className="auth-btn-primary" onClick={handleSubmit} disabled={loading}>{loading ? "处理中…" : mode === "login" ? "登录" : "注册"}</button>
+        <button className="auth-btn-secondary" onClick={() => { setMode(m => m === "login" ? "register" : "login"); setError(""); }}>{mode === "login" ? "注册" : "返回登录"}</button>
         <div className="auth-switch">
           {mode === "login"
             ? <>没有账号？<button onClick={() => { setMode("register"); setError(""); }}>立即注册</button></>
-            : <>已有账号？<button onClick={() => { setMode("login"); setError(""); }}>直接登录</button></>
-          }
+            : <>已有账号？<button onClick={() => { setMode("login"); setError(""); }}>直接登录</button></>}
         </div>
       </div>
     </div>
   );
 }
 
-// ── ChatSection ────────────────────────────────────────────
+// ─── CHAT SECTION ────────────────────────────────────────────────────────────
 
-function ChatSection() {
+function ChatSection({ externalPrompt, onExternalPromptUsed }) {
   const [msgs, setMsgs] = useState([
     { role: "ai", html: "你好！我是 <strong>Kindle 助手</strong>，专门解答关于 Kindle 的一切问题 📖<br><br>型号选购、格式推送、字体安装、越狱教程、故障排查……都可以问我～<br><br><em style='color:var(--amber);font-size:.8rem;font-style:normal'>💡 登录后 AI 将记住你的偏好，越聊越懂你的需求。</em>" }
   ]);
@@ -798,38 +583,35 @@ function ChatSection() {
   const [token, setToken] = useState(null);
   const boxRef = useRef(null);
 
-  // 初始化：从 localStorage 读取登录状态
+  // 从 localStorage 读取登录状态
   useEffect(() => {
     const savedToken = localStorage.getItem("aok_token");
     const savedUser = localStorage.getItem("aok_username");
-    if (savedToken && savedUser) {
-      setToken(savedToken);
-      setUsername(savedUser);
-    }
+    if (savedToken && savedUser) { setToken(savedToken); setUsername(savedUser); }
   }, []);
+
+  // 处理来自问卷的外部 prompt
+  useEffect(() => {
+    if (externalPrompt) {
+      send(externalPrompt);
+      onExternalPromptUsed?.();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [externalPrompt]);
 
   useEffect(() => {
     if (boxRef.current) boxRef.current.scrollTop = boxRef.current.scrollHeight;
   }, [msgs, loading]);
 
   function handleAuthSuccess(user, tok) {
-    setUsername(user);
-    setToken(tok);
-    setShowAuth(false);
-    setMsgs(m => [...m, {
-      role: "ai",
-      html: `欢迎，<strong style="color:var(--amber)">${user}</strong>！你的对话记忆已云端同步 ☁️`
-    }]);
+    setUsername(user); setToken(tok); setShowAuth(false);
+    setMsgs(m => [...m, { role: "ai", html: `欢迎，<strong style="color:var(--amber)">${user}</strong>！你的对话记忆已云端同步 ☁️` }]);
   }
 
   function handleLogout() {
     if (!confirm("确认退出登录？")) return;
-    localStorage.removeItem("aok_token");
-    localStorage.removeItem("aok_username");
-    setUsername(null);
-    setToken(null);
-    setProfile(null);
-    setHistory([]);
+    localStorage.removeItem("aok_token"); localStorage.removeItem("aok_username");
+    setUsername(null); setToken(null); setProfile(null); setHistory([]);
     setMsgs([{ role: "ai", html: "已退出登录。你好，我是 <strong>Kindle 助手</strong>，请问有什么想了解的？" }]);
   }
 
@@ -851,7 +633,6 @@ function ChatSection() {
         headers,
         body: JSON.stringify({ messages: nh }),
       });
-
       const data = await res.json();
       const reply = data.reply || "未收到有效回复";
       const source = data.source || "deepseek";
@@ -873,10 +654,7 @@ function ChatSection() {
   function renderProfileTags() {
     if (!profile || profile.messageCount < 2 || !username) return null;
     const tags = [];
-    if (profile.budget) {
-      const l = { low: "💰 入门预算", mid: "💳 中等预算", high: "💎 高端预算" };
-      tags.push(l[profile.budget]);
-    }
+    if (profile.budget) { const l = { low: "💰 入门预算", mid: "💳 中等预算", high: "💎 高端预算" }; tags.push(l[profile.budget]); }
     const ucm = { manga: "🎨 看漫画", notes: "✏️ 做笔记", pdf: "📄 看PDF", reading: "📖 纯阅读", study: "🎓 学习" };
     profile.useCase?.slice(0, 2).forEach(u => { if (ucm[u]) tags.push(ucm[u]); });
     if (profile.needWaterproof) tags.push("💧 防水");
@@ -894,21 +672,17 @@ function ChatSection() {
   return (
     <section className="chat-section" id="chat-section">
       {showAuth && <AuthModal onClose={() => setShowAuth(false)} onSuccess={handleAuthSuccess} />}
-
       <div className="chat-wrapper">
         <div className="chat-sec-label">// AI 智能问答</div>
         <div className="chat-sec-title">问问 Kindle 助手</div>
 
-        {/* 用户状态栏 */}
         <div className="user-bar">
           {username ? (
             <>
               <div className="user-bar-info">
                 <span style={{ color: "#4a3a20" }}>已登录：</span>
                 <span className="user-bar-name">{username}</span>
-                {profile?.messageCount > 0 && (
-                  <span className="user-bar-count">· {profile.messageCount} 条对话记忆</span>
-                )}
+                {profile?.messageCount > 0 && <span className="user-bar-count">· {profile.messageCount} 条对话记忆</span>}
               </div>
               <div className="user-bar-actions">
                 <button className="user-bar-btn" onClick={handleLogout}>退出</button>
@@ -916,9 +690,7 @@ function ChatSection() {
             </>
           ) : (
             <>
-              <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", color: "#3a2a10", letterSpacing: ".06em" }}>
-                未登录 · 对话记忆不会保存
-              </span>
+              <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", color: "#3a2a10", letterSpacing: ".06em" }}>未登录 · 对话记忆不会保存</span>
               <button className="user-bar-login" onClick={() => setShowAuth(true)}>登录 / 注册</button>
             </>
           )}
@@ -926,13 +698,14 @@ function ChatSection() {
 
         <div className="chat-sec-sub">
           由 DeepSeek AI 驱动，支持型号选购、使用教程、越狱指南、故障排查等问题。
+          {profile && profile.messageCount > 1 && (
+            <span style={{ color: "var(--amber)", fontSize: ".8rem", marginLeft: ".5rem" }}>（已记住 {profile.messageCount} 条对话偏好）</span>
+          )}
         </div>
 
         <div className="quick-row">
           {QUICK_Q.map(q => (
-            <button key={q} className="quick-btn" onClick={() => send(q)}>
-              {q.length > 16 ? q.slice(0, 16) + "…" : q}
-            </button>
+            <button key={q} className="quick-btn" onClick={() => send(q)}>{q.length > 16 ? q.slice(0, 16) + "…" : q}</button>
           ))}
         </div>
 
@@ -949,136 +722,14 @@ function ChatSection() {
               <div className="msg-bubble"><div className="dots"><div className="dot" /><div className="dot" /><div className="dot" /></div></div>
             </div>
           )}
-          {history.length > 5 && (
-            <div className="memory-hint">↑ 助手已记住本次对话中的偏好，推荐结果将越来越精准</div>
-          )}
+          {history.length > 5 && <div className="memory-hint">↑ 助手已记住本次对话中的偏好，推荐结果将越来越精准</div>}
         </div>
 
         {renderProfileTags()}
 
         <div className="chat-input-row">
-          <input
-            className="chat-input"
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            onKeyDown={e => e.key === "Enter" && send()}
-            placeholder="输入你的 Kindle 问题……按 Enter 发送"
-            disabled={loading}
-          />
+          <input className="chat-input" value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && send()} placeholder="输入你的 Kindle 问题……按 Enter 发送" disabled={loading} />
           <button className="chat-send" onClick={() => send()} disabled={loading}>发送</button>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-  function renderProfileTags() {
-    if (!profile||profile.messageCount<2) return null;
-    const tags=[];
-    if(profile.budget){const l={low:"💰 入门预算",mid:"💳 中等预算",high:"💎 高端预算"};tags.push(l[profile.budget]);}
-    const ucm={manga:"🎨 看漫画",notes:"✏️ 做笔记",pdf:"📄 看PDF",reading:"📖 纯阅读",study:"🎓 学习"};
-    profile.useCase?.slice(0,2).forEach(u=>{if(ucm[u])tags.push(ucm[u]);});
-    if(profile.needWaterproof)tags.push("💧 防水");
-    if(profile.needColor)tags.push("🌈 彩色屏");
-    if(profile.needStylus)tags.push("🖊️ 手写笔");
-    if(!tags.length) return null;
-    return (
-      <div className="profile-bar">
-        <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".56rem",color:"#4a3a20"}}>我的偏好：</span>
-        {tags.map((t,i)=><span key={i} className="profile-tag active">{t}</span>)}
-      </div>
-    );
-  }
-
-  function renderUidPanel() {
-    if (!showUidPanel) return null;
-    return (
-      <div className="uid-panel">
-        <div style={{display:"flex",alignItems:"center",gap:"1rem"}}>
-          <div><div className="uid-label">你的记忆 ID</div><div className="uid-code">{uid}</div></div>
-          <div style={{display:"flex",gap:".5rem",marginLeft:"auto"}}>
-            <button className="uid-btn" onClick={copyUID}>{copied?"✓ 已复制":"复制"}</button>
-            <button className="uid-btn" onClick={resetUID} style={{color:"#7a3a30",borderColor:"#3a2020"}}>重置</button>
-          </div>
-        </div>
-        <div className="uid-tip">📋 记住这串 ID，在其他设备上输入后可延续对话记忆。<br/>清除浏览器数据前请先复制，否则记忆将无法恢复。</div>
-        <div>
-          <div className="uid-label" style={{marginBottom:".4rem"}}>切换到其他 ID</div>
-          <div className="uid-input-row">
-            <input className="uid-input" value={uidInputVal} onChange={e=>setUidInputVal(e.target.value)}
-              placeholder="输入其他设备的 ID，如 ABCD-1234"
-              onKeyDown={e=>e.key==="Enter"&&applyManualUID()} />
-            <button className="uid-confirm" onClick={applyManualUID}>切换 →</button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <section className="chat-section" id="chat-section">
-      <div className="chat-wrapper">
-        <div style={{display:"flex",alignItems:"flex-start",justifyContent:"space-between"}}>
-          <div>
-            <div className="chat-sec-label">// AI 智能问答</div>
-            <div className="chat-sec-title">问问 Kindle 助手</div>
-          </div>
-          <button onClick={()=>setShowUidPanel(v=>!v)} title="管理你的记忆 ID"
-            style={{marginTop:".3rem",fontFamily:"'JetBrains Mono',monospace",fontSize:".6rem",letterSpacing:".08em",
-              padding:".32rem .75rem",background:"transparent",cursor:"pointer",borderRadius:"2px",transition:"all .15s",flexShrink:0,
-              border:`1px solid ${showUidPanel?"var(--amber)":"#2a2010"}`,
-              color:showUidPanel?"var(--amber)":"#5a4a30"}}>
-            UID · {uid||"…"}
-          </button>
-        </div>
-        <div className="chat-sec-sub" style={{marginTop:".5rem"}}>
-          由 DeepSeek AI 驱动，支持型号选购、使用教程、越狱指南、故障排查等问题。
-          {profile&&profile.messageCount>1&&(
-            <span style={{color:"var(--amber)",fontSize:".8rem",marginLeft:".5rem"}}>
-              （已记住 {profile.messageCount} 条对话偏好）
-            </span>
-          )}
-        </div>
-        {renderUidPanel()}
-        <div className="quick-row">
-          {QUICK_Q.map(q=>(
-            <button key={q} className="quick-btn" onClick={()=>send(q)}>
-              {q.length>16?q.slice(0,16)+"…":q}
-            </button>
-          ))}
-        </div>
-        <div className="chat-box" ref={boxRef}>
-          {msgs.map((m,i)=>(
-            <div key={i} className={`msg ${m.role}`}>
-              <div className="msg-av">{m.role==="ai"?"K":"U"}</div>
-              <div className="msg-bubble" dangerouslySetInnerHTML={{__html:m.html}}/>
-            </div>
-          ))}
-          {loading&&(
-            <div className="msg ai">
-              <div className="msg-av">K</div>
-              <div className="msg-bubble"><div className="dots"><div className="dot"/><div className="dot"/><div className="dot"/></div></div>
-            </div>
-          )}
-          {history.length>5&&<div className="memory-hint">↑ 助手已记住本次对话中的偏好，推荐结果将越来越精准</div>}
-        </div>
-        {renderProfileTags()}
-        <div className="chat-input-row">
-<input 
-  className="chat-input" 
-  value={input} 
-  onChange={e=>setInput(e.target.value)}
-  onKeyDown={e=>e.key==="Enter"&&send()}
-  placeholder="输入你的 Kindle 问题……按 Enter 发送" 
-  disabled={loading}
-/>
-<button 
-  className="chat-send" 
-  onClick={() => send()} 
-  disabled={loading}
->
-发送
-</button>
         </div>
       </div>
     </section>
@@ -1089,8 +740,8 @@ function ChatSection() {
 
 export default function App() {
   const [filter, setFilter] = useState("all");
-const [quizPrompt, setQuizPrompt] = useState(null);
-  
+  const [quizPrompt, setQuizPrompt] = useState(null);
+
   useEffect(() => {
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -1098,43 +749,41 @@ const [quizPrompt, setQuizPrompt] = useState(null);
     document.head.appendChild(link);
   }, []);
 
-  const filtered = MODELS.filter(m=>{
-    if(filter==="all") return true;
-    if(filter==="current") return m.era==="current";
-    if(filter==="legacy") return m.era==="legacy";
-    return m.series===filter;
+  const filtered = MODELS.filter(m => {
+    if (filter === "all") return true;
+    if (filter === "current") return m.era === "current";
+    if (filter === "legacy") return m.era === "legacy";
+    return m.series === filter;
   });
 
   const FILTERS = [
-    {key:"all",label:"全部"},
-    {key:"current",label:"在售型号"},
-    {key:"paperwhite",label:"Paperwhite"},
-    {key:"oasis",label:"Oasis"},
-    {key:"scribe",label:"Scribe"},
-    {key:"legacy",label:"历代经典"},
+    { key: "all", label: "全部" },
+    { key: "current", label: "在售型号" },
+    { key: "paperwhite", label: "Paperwhite" },
+    { key: "oasis", label: "Oasis" },
+    { key: "scribe", label: "Scribe" },
+    { key: "legacy", label: "历代经典" },
   ];
 
-  function scrollTo(id){ document.getElementById(id)?.scrollIntoView({behavior:"smooth"}); }
+  function scrollTo(id) { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); }
 
   return (
     <>
       <style>{globalCSS}</style>
 
-      {/* NAV */}
       <nav className="nav">
         <div className="nav-logo">All of <em>Kindle</em></div>
         <div className="nav-links">
-          <a onClick={()=>scrollTo("models")}>型号</a>
-          <a onClick={()=>scrollTo("compare")}>对比</a>
-          <a onClick={()=>scrollTo("tutorials")}>教程</a>
-          <a onClick={()=>scrollTo("chat-section")}>AI 问答</a>
+          <a onClick={() => scrollTo("models")}>型号</a>
+          <a onClick={() => scrollTo("compare")}>对比</a>
+          <a onClick={() => scrollTo("tutorials")}>教程</a>
+          <a onClick={() => scrollTo("chat-section")}>AI 问答</a>
         </div>
       </nav>
 
-      {/* HERO */}
       <section className="hero">
         <div className="hero-eyebrow">The Complete Reference · 中文版</div>
-        <h1>一切关于<br/><em>Kindle</em></h1>
+        <h1>一切关于<br /><em>Kindle</em></h1>
         <p>收录历代型号完整数据库，配套深度使用教程与选购指南，内置 AI 助手随时解答你的问题。</p>
         <div className="hero-stats">
           <div><div className="stat-num">15+</div><div className="stat-lbl">收录型号</div></div>
@@ -1143,41 +792,39 @@ const [quizPrompt, setQuizPrompt] = useState(null);
         </div>
       </section>
 
-      {/* MODELS */}
       <div id="models">
         <div className="section">
           <div className="sec-label">// 型号数据库</div>
           <h2 className="sec-title">Kindle 全系列型号</h2>
           <div className="filter-tabs">
-            {FILTERS.map(f=>(
-              <button key={f.key} className={`ftab${filter===f.key?" active":""}`} onClick={()=>setFilter(f.key)}>{f.label}</button>
+            {FILTERS.map(f => (
+              <button key={f.key} className={`ftab${filter === f.key ? " active" : ""}`} onClick={() => setFilter(f.key)}>{f.label}</button>
             ))}
           </div>
           <div className="kindle-grid">
-            {filtered.map((m,i)=><ModelCard key={i} m={m}/>)}
+            {filtered.map((m, i) => <ModelCard key={i} m={m} />)}
           </div>
         </div>
       </div>
 
-      {/* COMPARE */}
       <div id="compare">
-        <div className="section" style={{paddingTop:0}}>
+        <div className="section" style={{ paddingTop: 0 }}>
           <div className="sec-label">// 横向对比</div>
           <h2 className="sec-title">2026 在售型号核心参数</h2>
           <div className="compare-wrap">
             <table className="compare-table">
               <thead>
-                <tr>{["型号","屏幕","彩色","防水","手写","色温调节","无线充","存储上限","重量","价格起"].map(h=><th key={h}>{h}</th>)}</tr>
+                <tr>{["型号", "屏幕", "彩色", "防水", "手写", "色温调节", "无线充", "存储上限", "重量", "价格起"].map(h => <th key={h}>{h}</th>)}</tr>
               </thead>
               <tbody>
-                {COMPARE_ROWS.map(([name,sc,color,waterp,write,temp,wireless,storage,wt,price,hl])=>(
-                  <tr key={name} className={hl?"hl":""}>
+                {COMPARE_ROWS.map(([name, sc, color, waterp, write, temp, wireless, storage, wt, price, hl]) => (
+                  <tr key={name} className={hl ? "hl" : ""}>
                     <td>{name}</td><td>{sc}</td>
-                    <td>{color==="✓"?<span className="chk">✓</span>:<span className="crs">✗</span>}</td>
-                    <td>{waterp==="✗"?<span className="crs">✗</span>:<span className="chk">{waterp}</span>}</td>
-                    <td>{write==="✓"?<span className="chk">✓</span>:<span className="crs">✗</span>}</td>
-                    <td>{temp==="✓"?<span className="chk">✓</span>:<span className="crs">✗</span>}</td>
-                    <td>{wireless==="✓"?<span className="chk">✓</span>:<span className="crs">✗</span>}</td>
+                    <td>{color === "✓" ? <span className="chk">✓</span> : <span className="crs">✗</span>}</td>
+                    <td>{waterp === "✗" ? <span className="crs">✗</span> : <span className="chk">{waterp}</span>}</td>
+                    <td>{write === "✓" ? <span className="chk">✓</span> : <span className="crs">✗</span>}</td>
+                    <td>{temp === "✓" ? <span className="chk">✓</span> : <span className="crs">✗</span>}</td>
+                    <td>{wireless === "✓" ? <span className="chk">✓</span> : <span className="crs">✗</span>}</td>
                     <td>{storage}</td><td>{wt}</td><td>{price}</td>
                   </tr>
                 ))}
@@ -1187,24 +834,20 @@ const [quizPrompt, setQuizPrompt] = useState(null);
         </div>
       </div>
 
-   {/* TUTORIALS */}
-<div id="tutorials">
-  <div className="section">
-    <div className="sec-label">// 使用指南</div>
-    <h2 className="sec-title">深度教程（点击展开）</h2>
-    <div className="tut-list">
-      {TUTORIALS.map((t,i)=><TutorialItem key={i} t={t}/>)}
-    </div>
-  </div>
-</div>
+      <div id="tutorials">
+        <div className="section">
+          <div className="sec-label">// 使用指南</div>
+          <h2 className="sec-title">深度教程（点击展开）</h2>
+          <div className="tut-list">
+            {TUTORIALS.map((t, i) => <TutorialItem key={i} t={t} />)}
+          </div>
+        </div>
+      </div>
 
-{/* 选购问卷 ← 新增 */}
-<QuizSection onSendToChat={(prompt) => setQuizPrompt(prompt)} />
+      <QuizSection onSendToChat={(prompt) => setQuizPrompt(prompt)} />
 
-{/* AI CHAT */}
-<ChatSection externalPrompt={quizPrompt} onExternalPromptUsed={() => setQuizPrompt(null)} />
+      <ChatSection externalPrompt={quizPrompt} onExternalPromptUsed={() => setQuizPrompt(null)} />
 
-      {/* FOOTER */}
       <footer className="footer">
         <p>© 2025 <span>All of Kindle</span> — 非官方独立参考站，与亚马逊无关联</p>
         <p>AI 问答由 <span>DeepSeek AI</span> 驱动 · 数据仅供参考，请以官网为准</p>
