@@ -1017,6 +1017,9 @@ export default function App() {
         </div>
       </div>
 
+      {/* 选购问卷  */}
+<QuizSection onSendToChat={(prompt) => setQuizPrompt(prompt)} />
+
       {/* AI CHAT */}
       <ChatSection/>
 
